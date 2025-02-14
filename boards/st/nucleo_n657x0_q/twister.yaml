@@ -4,9 +4,12 @@ arch: arm
 ram: 1024
 flash: 1024
 supported:
+  - arduino_i2c
   - arduino_serial
+  - adc
   - can
   - dma
+  - i2c
   - gpio
   - uart
 vendor: st
