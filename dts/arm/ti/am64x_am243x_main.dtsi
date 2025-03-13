@@ -1,0 +1,95 @@
+/*
+ * Copyright (c) 2025 Texas Instruments Incorporated
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+#include <mem.h>
+#include <freq.h>
+#include <zephyr/dt-bindings/pinctrl/ti-k3-pinctrl.h>
+#include <zephyr/dt-bindings/gpio/gpio.h>
+
+/ {
+  #address-cells = <1>;
+  #size-cells = <1>;
+
+	pinctrl: pinctrl@f4000 {
+		compatible = "ti,k3-pinctrl";
+		reg = <0xf4000 0x88>;
+		status = "okay";
+	};
+
+  uart0: uart@2800000 {
+    compatible = "ns16550";
+    reg = <0x02800000 0x200>;
+    clock-frequency = <48000000>;
+    reg-shift = <2>;
+    status = "disabled";
+  };
+
+  uart1: uart@2810000 {
+    compatible = "ns16550";
+    reg = <0x02810000 0x200>;
+    clock-frequency = <48000000>;
+    reg-shift = <2>;
+    status = "disabled";
+  };
+
+  gpio0: gpio@600010 {
+    compatible = "ti,davinci-gpio";
+    reg = <0x600010 0x100>;
+    gpio-controller;
+    #gpio-cells = <2>;
+    ngpios = <23>;
+    status = "disabled";
+  };
+
+  adc0: adc@28001000 {
+    compatible = "ti,adc-k3";
+    reg = <0x28001000 0x204>;
+    interrupts = <0 128 IRQ_TYPE_LEVEL IRQ_DEFAULT_PRIORITY>;
+    interrupt-parent = <&vim>;
+    status = "okay";
+    vref_mv = <1800>;
+    fifo = <0>;
+    #io-channel-cells = <1>;
+    #address-cells = <1>;
+    #size-cells = <0>;
+    
+    channel@0 {
+      reg = <0>;
+      zephyr,gain = "ADC_GAIN_1";
+      zephyr,reference = "ADC_REF_INTERNAL";
+      zephyr,acquisition-time = <0>;
+      zephyr,oversampling = <4>;
+      open-delay = <0>;
+    };
+
+    channel@1 {
+      reg = <1>;
+      zephyr,gain = "ADC_GAIN_1";
+      zephyr,reference = "ADC_REF_INTERNAL";
+      zephyr,acquisition-time = <0>;
+      zephyr,oversampling = <4>;
+      open-delay = <0>;
+    };
+
+    channel@2 {
+      reg = <2>;
+      zephyr,gain = "ADC_GAIN_1";
+      zephyr,reference = "ADC_REF_INTERNAL";
+      zephyr,acquisition-time = <0>;
+      open-delay = <0>;
+      zephyr,oversampling = <4>;
+    };
+
+    channel@5 {
+      reg = <5>;
+      zephyr,gain = "ADC_GAIN_1";
+      zephyr,reference = "ADC_REF_INTERNAL";
+      zephyr,acquisition-time = <0>;
+      open-delay = <0>;
+      zephyr,oversampling = <4>;
+    };
+  };
+};

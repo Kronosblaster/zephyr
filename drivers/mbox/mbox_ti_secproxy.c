@@ -4,7 +4,7 @@
  * TI Secureproxy Mailbox driver.
  */
 
-#define DT_DRV_COMPAT ti_am654_secure_proxy
+#define DT_DRV_COMPAT ti_secure_proxy
 
 #include <zephyr/devicetree.h>
 #include <zephyr/drivers/mbox.h>
@@ -214,23 +214,16 @@ static const struct mbox_driver_api secproxy_mailbox_driver_api = {
     .max_channels_get = secproxy_mailbox_max_channels_get,
     .set_enabled = secproxy_mailbox_set_enabled,
 };
-
+#if defined CONFIG_SOC_AM2434_R5
 #define MAILBOX_INSTANCE_DEFINE(idx)	\
     static struct secproxy_mailbox_data secproxy_mailbox_##idx##_data;	\
     const static struct secproxy_mailbox_config secproxy_mailbox_##idx##_config; \
     static int secproxy_mailbox_##idx##_init(const struct device *dev)	\
     {	\
         struct secproxy_mailbox_data *data = dev->data;	\
-        mem_addr_t addr;	\
-        device_map((mm_reg_t *)&addr, DT_INST_REG_ADDR_BY_NAME(idx, target_data),	\
-        DT_INST_REG_SIZE_BY_NAME(idx, target_data), K_MEM_CACHE_NONE);	\
-        data->mapped_target_data = addr;	\
-        device_map((mm_reg_t *)&addr, DT_INST_REG_ADDR_BY_NAME(idx, rt),	\
-        DT_INST_REG_SIZE_BY_NAME(idx, rt), K_MEM_CACHE_NONE);	\
-        data->mapped_rt = addr;	\
-        device_map((mm_reg_t *)&addr, DT_INST_REG_ADDR_BY_NAME(idx, scfg),	\
-        DT_INST_REG_SIZE_BY_NAME(idx, scfg), K_MEM_CACHE_NONE);	\
-        data->mapped_scfg = addr;	\
+        data->mapped_target_data = DT_INST_REG_ADDR_BY_NAME(idx, target_data);	\
+        data->mapped_rt = DT_INST_REG_ADDR_BY_NAME(idx, rt);	\
+        data->mapped_scfg = DT_INST_REG_ADDR_BY_NAME(idx, scfg);	\
         IRQ_CONNECT(DT_INST_IRQN(idx), DT_INST_IRQ(idx, priority), secproxy_mailbox_isr,	\
                 DEVICE_DT_INST_GET(idx), 0);	\
         irq_enable(DT_INST_IRQN(idx));	\
@@ -242,6 +235,36 @@ static const struct mbox_driver_api secproxy_mailbox_driver_api = {
                  CONFIG_MBOX_INIT_PRIORITY,	\
                  &secproxy_mailbox_driver_api)
 
-#define MAILBOX_INST(idx) MAILBOX_INSTANCE_DEFINE(idx);
+#endif
+#if defined CONFIG_SOC_AM6234_A53
+#define MAILBOX_INSTANCE_DEFINE(idx)	\
+	static struct secproxy_mailbox_data secproxy_mailbox_##idx##_data;	\
+	const static struct secproxy_mailbox_config secproxy_mailbox_##idx##_config; \
+	static int secproxy_mailbox_##idx##_init(const struct device *dev)	\
+	{	\
+		struct secproxy_mailbox_data *data = dev->data;	\
+		mem_addr_t addr;	\
+		device_map((mm_reg_t *)&addr, DT_INST_REG_ADDR_BY_NAME(idx, target_data),	\
+		DT_INST_REG_SIZE_BY_NAME(idx, target_data), K_MEM_CACHE_NONE);	\
+		data->mapped_target_data = addr;	\
+		device_map((mm_reg_t *)&addr, DT_INST_REG_ADDR_BY_NAME(idx, rt),	\
+		DT_INST_REG_SIZE_BY_NAME(idx, rt), K_MEM_CACHE_NONE);	\
+		data->mapped_rt = addr;	\
+		device_map((mm_reg_t *)&addr, DT_INST_REG_ADDR_BY_NAME(idx, scfg),	\
+		DT_INST_REG_SIZE_BY_NAME(idx, scfg), K_MEM_CACHE_NONE);	\
+		data->mapped_scfg = addr;	\
+		IRQ_CONNECT(DT_INST_IRQN(idx), DT_INST_IRQ(idx, priority), secproxy_mailbox_isr,	\
+			    DEVICE_DT_INST_GET(idx), 0);	\
+		irq_enable(DT_INST_IRQN(idx));	\
+		return 0;	\
+	}	 \
+	DEVICE_DT_INST_DEFINE(idx, secproxy_mailbox_##idx##_init, \
+			     NULL, &secproxy_mailbox_##idx##_data,	\
+			     &secproxy_mailbox_##idx##_config, POST_KERNEL, \
+			     CONFIG_MBOX_INIT_PRIORITY,	\
+			     &secproxy_mailbox_driver_api)
 
+#endif
+
+#define MAILBOX_INST(idx) MAILBOX_INSTANCE_DEFINE(idx);
 DT_INST_FOREACH_STATUS_OKAY(MAILBOX_INST)

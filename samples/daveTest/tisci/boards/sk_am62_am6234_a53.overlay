@@ -1,0 +1,26 @@
+/*
+ * Copyright 2024 NXP
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/ {
+	dmsc: system-controller@44043000 {
+		compatible = "ti,k2g-sci";
+		ti,host-id = <12>;
+		mbox-names = "rx", "tx";
+		mboxes = <&secure_proxy_main 12>, <&secure_proxy_main 13>;
+		reg-names = "debug_messages";
+		reg = <0x44043000 0xfe0>;
+	};
+
+    secure_proxy_main: mailbox0@4d000000 {
+		compatible = "ti,secure-proxy";
+		reg-names = "target_data", "rt", "scfg";
+		reg = <0x4d000000 0x80000>, <0x4a600000 0x80000>, <0x4a400000 0x80000>;
+		interrupts = <GIC_SPI 34 IRQ_TYPE_EDGE IRQ_DEFAULT_PRIORITY>;
+		interrupt-parent = <&gic>;
+		#mbox-cells = <1>;
+        status = "okay";
+	};
+};
