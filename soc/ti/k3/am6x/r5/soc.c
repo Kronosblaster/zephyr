@@ -81,6 +81,8 @@ static const struct arm_mpu_region mpu_regions[] = {
 		"SRAM core partition", DT_REG_ADDR(DT_NODELABEL(msram)),
 		ARM_MPU_REGION_SIZE_512KB << MPU_RASR_SIZE_Pos,
 		{MPU_RASR_C_Msk | MPU_RASR_B_Msk | (1 << MPU_RASR_TEX_Pos) | P_RW_U_RO_Msk}),
+	MPU_REGION_ENTRY("Base permissions1", 0x60000000, REGION_256M,
+			 {MPU_RASR_C_Msk | MPU_RASR_B_Msk | MPU_RASR_TEX_Msk | RO_Msk}),
 	/* Shared SRAM. Caching is disabled for now */
 };
 
