@@ -13,7 +13,7 @@
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/mbox.h>
 #include <zephyr/logging/log.h>
-#include <zephyr/drivers/misc/ti_sci/ti_sci.h>
+#include <zephyr/drivers/firmware/ti_sci/tisci_protocol.h>
 
 LOG_MODULE_REGISTER(main, LOG_LEVEL_INF);
 
@@ -22,7 +22,6 @@ struct rx_msg {
 	uint8_t size;
 	char buf[256];
 };
-struct rx_msg rx_message;
 
 struct ti_sci_xfer {
 	struct mbox_msg tx_message;

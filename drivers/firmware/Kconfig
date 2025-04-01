@@ -11,5 +11,5 @@ config ARM_SCMI
 	  Interface (SCMI).
 
 source "drivers/firmware/scmi/Kconfig"
-
+source "drivers/firmware/ti_sci/Kconfig"
 endmenu

@@ -21,3 +21,6 @@ properties:
   io-mapped:
     type: boolean
     description: specify registers are IO mapped or memory mapped
+
+  clocks:
+    type: phandle-array

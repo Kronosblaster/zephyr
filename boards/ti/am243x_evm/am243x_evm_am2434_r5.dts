@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2025 Texas Instruments Incorporated
- *
- * SPDX-License-Identifier: Apache-2.0
- */
+* Copyright (c) 2025 Texas Instruments Incorporated
+*
+* SPDX-License-Identifier: Apache-2.0
+*/
 
 /dts-v1/;
 
@@ -11,20 +11,20 @@
 / {
 	model = "TI AM243x AM2434 R5 domain";
 	compatible = "ti,am2434";
-
+	
 	chosen {
 		zephyr,sram = &msram;
 		zephyr,sram1 = &btcm;
 		zephyr,console = &uart0;
 		zephyr,shell-uart = &uart0;
 	};
-
+	
 	cpus {
 		cpu@0 {
 			status = "okay";
 		};
 	};
-
+	
 	rsc_table: memory@a0100000 {
 		compatible = "zephyr,memory-region", "mmio-sram";
 		reg = <0xa0100000 DT_SIZE_M(1)>;
@@ -56,3 +56,4 @@
 &systick_timer {
 	status = "okay";
 };
+

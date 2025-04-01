@@ -12,71 +12,72 @@
 #ifndef INCLUDE_ZEPHYR_DRIVERS_MISC_TISCI_H_
 #define INCLUDE_ZEPHYR_DRIVERS_MISC_TISCI_H_
 
+#include <zephyr/drivers/mbox.h>
 #include <stdint.h>
 
-#define TI_SCI_MSG_ENABLE_WDT		0x0000
-#define TI_SCI_MSG_WAKE_RESET		0x0001
-#define TI_SCI_MSG_VERSION		0x0002
-#define TI_SCI_MSG_WAKE_REASON		0x0003
-#define TI_SCI_MSG_GOODBYE		0x0004
-#define TI_SCI_MSG_SYS_RESET		0x0005
-#define TI_SCI_MSG_BOARD_CONFIG		0x000b
-#define TI_SCI_MSG_BOARD_CONFIG_RM	0x000c
-#define TI_SCI_MSG_BOARD_CONFIG_SECURITY  0x000d
-#define TI_SCI_MSG_BOARD_CONFIG_PM	0x000e
-#define TISCI_MSG_QUERY_MSMC		0x0020
+#define TI_SCI_MSG_ENABLE_WDT            0x0000
+#define TI_SCI_MSG_WAKE_RESET            0x0001
+#define TI_SCI_MSG_VERSION               0x0002
+#define TI_SCI_MSG_WAKE_REASON           0x0003
+#define TI_SCI_MSG_GOODBYE               0x0004
+#define TI_SCI_MSG_SYS_RESET             0x0005
+#define TI_SCI_MSG_BOARD_CONFIG          0x000b
+#define TI_SCI_MSG_BOARD_CONFIG_RM       0x000c
+#define TI_SCI_MSG_BOARD_CONFIG_SECURITY 0x000d
+#define TI_SCI_MSG_BOARD_CONFIG_PM       0x000e
+#define TISCI_MSG_QUERY_MSMC             0x0020
 
 /* Device requests */
-#define TI_SCI_MSG_SET_DEVICE_STATE	0x0200
-#define TI_SCI_MSG_GET_DEVICE_STATE	0x0201
-#define TI_SCI_MSG_SET_DEVICE_RESETS	0x0202
+#define TI_SCI_MSG_SET_DEVICE_STATE  0x0200
+#define TI_SCI_MSG_GET_DEVICE_STATE  0x0201
+#define TI_SCI_MSG_SET_DEVICE_RESETS 0x0202
 
 /* Clock requests */
-#define TI_SCI_MSG_SET_CLOCK_STATE	0x0100
-#define TI_SCI_MSG_GET_CLOCK_STATE	0x0101
-#define TI_SCI_MSG_SET_CLOCK_PARENT	0x0102
-#define TI_SCI_MSG_GET_CLOCK_PARENT	0x0103
+#define TI_SCI_MSG_SET_CLOCK_STATE       0x0100
+#define TI_SCI_MSG_GET_CLOCK_STATE       0x0101
+#define TI_SCI_MSG_SET_CLOCK_PARENT      0x0102
+#define TI_SCI_MSG_GET_CLOCK_PARENT      0x0103
 #define TI_SCI_MSG_GET_NUM_CLOCK_PARENTS 0x0104
-#define TI_SCI_MSG_SET_CLOCK_FREQ	0x010c
-#define TI_SCI_MSG_QUERY_CLOCK_FREQ	0x010d
-#define TI_SCI_MSG_GET_CLOCK_FREQ	0x010e
+#define TI_SCI_MSG_SET_CLOCK_FREQ        0x010c
+#define TI_SCI_MSG_QUERY_CLOCK_FREQ      0x010d
+#define TI_SCI_MSG_GET_CLOCK_FREQ        0x010e
 
 /* Processor Control Messages */
-#define TISCI_MSG_PROC_REQUEST		0xc000
-#define TISCI_MSG_PROC_RELEASE		0xc001
-#define TISCI_MSG_PROC_HANDOVER		0xc005
-#define TISCI_MSG_SET_PROC_BOOT_CONFIG	0xc100
-#define TISCI_MSG_SET_PROC_BOOT_CTRL	0xc101
-#define TISCI_MSG_PROC_AUTH_BOOT_IMAGE	0xc120
-#define TISCI_MSG_GET_PROC_BOOT_STATUS	0xc400
-#define TISCI_MSG_WAIT_PROC_BOOT_STATUS	0xc401
+#define TISCI_MSG_PROC_REQUEST          0xc000
+#define TISCI_MSG_PROC_RELEASE          0xc001
+#define TISCI_MSG_PROC_HANDOVER         0xc005
+#define TISCI_MSG_SET_PROC_BOOT_CONFIG  0xc100
+#define TISCI_MSG_SET_PROC_BOOT_CTRL    0xc101
+#define TISCI_MSG_PROC_AUTH_BOOT_IMAGE  0xc120
+#define TISCI_MSG_GET_PROC_BOOT_STATUS  0xc400
+#define TISCI_MSG_WAIT_PROC_BOOT_STATUS 0xc401
 
 /* Resource Management Requests */
-#define TI_SCI_MSG_GET_RESOURCE_RANGE	0x1500
+#define TI_SCI_MSG_GET_RESOURCE_RANGE 0x1500
 
 /* NAVSS resource management */
 /* Ringacc requests */
-#define TI_SCI_MSG_RM_RING_CFG			0x1110
+#define TI_SCI_MSG_RM_RING_CFG 0x1110
 
 /* PSI-L requests */
-#define TI_SCI_MSG_RM_PSIL_PAIR			0x1280
-#define TI_SCI_MSG_RM_PSIL_UNPAIR		0x1281
+#define TI_SCI_MSG_RM_PSIL_PAIR   0x1280
+#define TI_SCI_MSG_RM_PSIL_UNPAIR 0x1281
 
-#define TI_SCI_MSG_RM_UDMAP_TX_ALLOC		0x1200
-#define TI_SCI_MSG_RM_UDMAP_TX_FREE		0x1201
-#define TI_SCI_MSG_RM_UDMAP_RX_ALLOC		0x1210
-#define TI_SCI_MSG_RM_UDMAP_RX_FREE		0x1211
-#define TI_SCI_MSG_RM_UDMAP_FLOW_CFG		0x1220
-#define TI_SCI_MSG_RM_UDMAP_OPT_FLOW_CFG	0x1221
+#define TI_SCI_MSG_RM_UDMAP_TX_ALLOC     0x1200
+#define TI_SCI_MSG_RM_UDMAP_TX_FREE      0x1201
+#define TI_SCI_MSG_RM_UDMAP_RX_ALLOC     0x1210
+#define TI_SCI_MSG_RM_UDMAP_RX_FREE      0x1211
+#define TI_SCI_MSG_RM_UDMAP_FLOW_CFG     0x1220
+#define TI_SCI_MSG_RM_UDMAP_OPT_FLOW_CFG 0x1221
 
-#define TISCI_MSG_RM_UDMAP_TX_CH_CFG		0x1205
-#define TISCI_MSG_RM_UDMAP_RX_CH_CFG		0x1215
-#define TISCI_MSG_RM_UDMAP_FLOW_CFG		0x1230
-#define TISCI_MSG_RM_UDMAP_FLOW_SIZE_THRESH_CFG	0x1231
+#define TISCI_MSG_RM_UDMAP_TX_CH_CFG            0x1205
+#define TISCI_MSG_RM_UDMAP_RX_CH_CFG            0x1215
+#define TISCI_MSG_RM_UDMAP_FLOW_CFG             0x1230
+#define TISCI_MSG_RM_UDMAP_FLOW_SIZE_THRESH_CFG 0x1231
 
-#define TISCI_MSG_FWL_SET		0x9000
-#define TISCI_MSG_FWL_GET		0x9001
-#define TISCI_MSG_FWL_CHANGE_OWNER	0x9002
+#define TISCI_MSG_FWL_SET          0x9000
+#define TISCI_MSG_FWL_GET          0x9001
+#define TISCI_MSG_FWL_CHANGE_OWNER 0x9002
 
 /**
  * struct ti_sci_msg_hdr - Generic Message Header for All messages and responses
@@ -89,15 +90,15 @@ struct ti_sci_msg_hdr {
 	uint16_t type;
 	uint8_t host;
 	uint8_t seq;
-#define TI_SCI_MSG_FLAG(val)			(1 << (val))
-#define TI_SCI_FLAG_REQ_GENERIC_NORESPONSE	0x0
-#define TI_SCI_FLAG_REQ_ACK_ON_RECEIVED		TI_SCI_MSG_FLAG(0)
-#define TI_SCI_FLAG_REQ_ACK_ON_PROCESSED	TI_SCI_MSG_FLAG(1)
-#define TI_SCI_FLAG_RESP_GENERIC_NACK		0x0
-#define TI_SCI_FLAG_RESP_GENERIC_ACK		TI_SCI_MSG_FLAG(1)
+#define TI_SCI_MSG_FLAG(val)               (1 << (val))
+#define TI_SCI_FLAG_REQ_GENERIC_NORESPONSE 0x0
+#define TI_SCI_FLAG_REQ_ACK_ON_RECEIVED    TI_SCI_MSG_FLAG(0)
+#define TI_SCI_FLAG_REQ_ACK_ON_PROCESSED   TI_SCI_MSG_FLAG(1)
+#define TI_SCI_FLAG_RESP_GENERIC_NACK      0x0
+#define TI_SCI_FLAG_RESP_GENERIC_ACK       TI_SCI_MSG_FLAG(1)
 	/* Additional Flags */
 	uint32_t flags;
-} __packed;
+} __attribute__((__packed__));
 
 /**
  * struct ti_sci_secure_msg_hdr - Header that prefixes all TISCI messages sent
@@ -108,7 +109,7 @@ struct ti_sci_msg_hdr {
 struct ti_sci_secure_msg_hdr {
 	uint16_t checksum;
 	uint16_t reserved;
-} __packed;
+} __attribute__((__packed__));
 
 /**
  * struct ti_sci_msg_resp_version - Response for a message
@@ -205,16 +206,16 @@ struct ti_sci_msg_resp_query_msmc {
  */
 struct ti_sci_msg_req_set_device_state {
 	/* Additional hdr->flags options */
-#define MSG_FLAG_DEVICE_WAKE_ENABLED	TI_SCI_MSG_FLAG(8)
-#define MSG_FLAG_DEVICE_RESET_ISO	TI_SCI_MSG_FLAG(9)
-#define MSG_FLAG_DEVICE_EXCLUSIVE	TI_SCI_MSG_FLAG(10)
+#define MSG_FLAG_DEVICE_WAKE_ENABLED TI_SCI_MSG_FLAG(8)
+#define MSG_FLAG_DEVICE_RESET_ISO    TI_SCI_MSG_FLAG(9)
+#define MSG_FLAG_DEVICE_EXCLUSIVE    TI_SCI_MSG_FLAG(10)
 	struct ti_sci_msg_hdr hdr;
 	uint32_t id;
 	uint32_t reserved;
 
-#define MSG_DEVICE_SW_STATE_AUTO_OFF	0
-#define MSG_DEVICE_SW_STATE_RETENTION	1
-#define MSG_DEVICE_SW_STATE_ON		2
+#define MSG_DEVICE_SW_STATE_AUTO_OFF  0
+#define MSG_DEVICE_SW_STATE_RETENTION 1
+#define MSG_DEVICE_SW_STATE_ON        2
 	uint8_t state;
 } __packed;
 
@@ -249,9 +250,9 @@ struct ti_sci_msg_resp_get_device_state {
 	uint32_t context_loss_count;
 	uint32_t resets;
 	uint8_t programmed_state;
-#define MSG_DEVICE_HW_STATE_OFF		0
-#define MSG_DEVICE_HW_STATE_ON		1
-#define MSG_DEVICE_HW_STATE_TRANS	2
+#define MSG_DEVICE_HW_STATE_OFF   0
+#define MSG_DEVICE_HW_STATE_ON    1
+#define MSG_DEVICE_HW_STATE_TRANS 2
 	uint8_t current_state;
 } __packed;
 
@@ -309,15 +310,15 @@ struct ti_sci_msg_req_set_device_resets {
  */
 struct ti_sci_msg_req_set_clock_state {
 	/* Additional hdr->flags options */
-#define MSG_FLAG_CLOCK_ALLOW_SSC		TI_SCI_MSG_FLAG(8)
-#define MSG_FLAG_CLOCK_ALLOW_FREQ_CHANGE	TI_SCI_MSG_FLAG(9)
-#define MSG_FLAG_CLOCK_INPUT_TERM		TI_SCI_MSG_FLAG(10)
+#define MSG_FLAG_CLOCK_ALLOW_SSC         TI_SCI_MSG_FLAG(8)
+#define MSG_FLAG_CLOCK_ALLOW_FREQ_CHANGE TI_SCI_MSG_FLAG(9)
+#define MSG_FLAG_CLOCK_INPUT_TERM        TI_SCI_MSG_FLAG(10)
 	struct ti_sci_msg_hdr hdr;
 	uint32_t dev_id;
 	uint8_t clk_id;
-#define MSG_CLOCK_SW_STATE_UNREQ	0
-#define MSG_CLOCK_SW_STATE_AUTO		1
-#define MSG_CLOCK_SW_STATE_REQ		2
+#define MSG_CLOCK_SW_STATE_UNREQ 0
+#define MSG_CLOCK_SW_STATE_AUTO  1
+#define MSG_CLOCK_SW_STATE_REQ   2
 	uint8_t request_state;
 } __packed;
 
@@ -352,8 +353,8 @@ struct ti_sci_msg_req_get_clock_state {
 struct ti_sci_msg_resp_get_clock_state {
 	struct ti_sci_msg_hdr hdr;
 	uint8_t programmed_state;
-#define MSG_CLOCK_HW_STATE_NOT_READY	0
-#define MSG_CLOCK_HW_STATE_READY	1
+#define MSG_CLOCK_HW_STATE_NOT_READY 0
+#define MSG_CLOCK_HW_STATE_READY     1
 	uint8_t current_state;
 } __packed;
 
@@ -553,7 +554,7 @@ struct ti_sci_msg_resp_get_clock_freq {
 	uint64_t freq_hz;
 } __packed;
 
-#define TI_SCI_IRQ_SECONDARY_HOST_INVALID	0xff
+#define TI_SCI_IRQ_SECONDARY_HOST_INVALID 0xff
 
 /**
  * struct ti_sci_msg_req_get_resource_range - Request to get a host's assigned
@@ -571,8 +572,8 @@ struct ti_sci_msg_resp_get_clock_freq {
  */
 struct ti_sci_msg_req_get_resource_range {
 	struct ti_sci_msg_hdr hdr;
-#define MSG_RM_RESOURCE_TYPE_MASK	GENMASK(9, 0)
-#define MSG_RM_RESOURCE_SUBTYPE_MASK	GENMASK(5, 0)
+#define MSG_RM_RESOURCE_TYPE_MASK    GENMASK(9, 0)
+#define MSG_RM_RESOURCE_SUBTYPE_MASK GENMASK(5, 0)
 	uint16_t type;
 	uint8_t subtype;
 	uint8_t secondary_host;
@@ -592,9 +593,9 @@ struct ti_sci_msg_resp_get_resource_range {
 	uint16_t range_num;
 } __packed;
 
-#define TISCI_ADDR_LOW_MASK		GENMASK_ULL(31, 0)
-#define TISCI_ADDR_HIGH_MASK		GENMASK_ULL(63, 32)
-#define TISCI_ADDR_HIGH_SHIFT		32
+#define TISCI_ADDR_LOW_MASK   GENMASK_ULL(31, 0)
+#define TISCI_ADDR_HIGH_MASK  GENMASK_ULL(63, 32)
+#define TISCI_ADDR_HIGH_SHIFT 32
 
 /**
  * struct ti_sci_msg_req_proc_request - Request a processor
@@ -641,21 +642,21 @@ struct ti_sci_msg_req_proc_handover {
 } __packed;
 
 /* A53 Config Flags */
-#define PROC_BOOT_CFG_FLAG_ARMV8_DBG_EN         0x00000001
-#define PROC_BOOT_CFG_FLAG_ARMV8_DBG_NIDEN      0x00000002
-#define PROC_BOOT_CFG_FLAG_ARMV8_DBG_SPIDEN     0x00000004
-#define PROC_BOOT_CFG_FLAG_ARMV8_DBG_SPNIDEN    0x00000008
-#define PROC_BOOT_CFG_FLAG_ARMV8_AARCH32        0x00000100
+#define PROC_BOOT_CFG_FLAG_ARMV8_DBG_EN      0x00000001
+#define PROC_BOOT_CFG_FLAG_ARMV8_DBG_NIDEN   0x00000002
+#define PROC_BOOT_CFG_FLAG_ARMV8_DBG_SPIDEN  0x00000004
+#define PROC_BOOT_CFG_FLAG_ARMV8_DBG_SPNIDEN 0x00000008
+#define PROC_BOOT_CFG_FLAG_ARMV8_AARCH32     0x00000100
 
 /* R5 Config Flags */
-#define PROC_BOOT_CFG_FLAG_R5_DBG_EN            0x00000001
-#define PROC_BOOT_CFG_FLAG_R5_DBG_NIDEN         0x00000002
-#define PROC_BOOT_CFG_FLAG_R5_LOCKSTEP          0x00000100
-#define PROC_BOOT_CFG_FLAG_R5_TEINIT            0x00000200
-#define PROC_BOOT_CFG_FLAG_R5_NMFI_EN           0x00000400
-#define PROC_BOOT_CFG_FLAG_R5_TCM_RSTBASE       0x00000800
-#define PROC_BOOT_CFG_FLAG_R5_BTCM_EN           0x00001000
-#define PROC_BOOT_CFG_FLAG_R5_ATCM_EN           0x00002000
+#define PROC_BOOT_CFG_FLAG_R5_DBG_EN      0x00000001
+#define PROC_BOOT_CFG_FLAG_R5_DBG_NIDEN   0x00000002
+#define PROC_BOOT_CFG_FLAG_R5_LOCKSTEP    0x00000100
+#define PROC_BOOT_CFG_FLAG_R5_TEINIT      0x00000200
+#define PROC_BOOT_CFG_FLAG_R5_NMFI_EN     0x00000400
+#define PROC_BOOT_CFG_FLAG_R5_TCM_RSTBASE 0x00000800
+#define PROC_BOOT_CFG_FLAG_R5_BTCM_EN     0x00001000
+#define PROC_BOOT_CFG_FLAG_R5_ATCM_EN     0x00002000
 
 /**
  * struct ti_sci_msg_req_set_proc_boot_config - Set Processor boot configuration
@@ -681,7 +682,7 @@ struct ti_sci_msg_req_set_proc_boot_config {
 } __packed;
 
 /* R5 Control Flags */
-#define PROC_BOOT_CTRL_FLAG_R5_CORE_HALT                0x00000001
+#define PROC_BOOT_CTRL_FLAG_R5_CORE_HALT 0x00000001
 
 /**
  * struct ti_sci_msg_req_set_proc_boot_ctrl - Set Processor boot control flags
@@ -738,14 +739,14 @@ struct ti_sci_msg_req_get_proc_boot_status {
 } __packed;
 
 /* ARMv8 Status Flags */
-#define PROC_BOOT_STATUS_FLAG_ARMV8_WFE			0x00000001
-#define PROC_BOOT_STATUS_FLAG_ARMV8_WFI			0x00000002
+#define PROC_BOOT_STATUS_FLAG_ARMV8_WFE 0x00000001
+#define PROC_BOOT_STATUS_FLAG_ARMV8_WFI 0x00000002
 
 /* R5 Status Flags */
-#define PROC_BOOT_STATUS_FLAG_R5_WFE			0x00000001
-#define PROC_BOOT_STATUS_FLAG_R5_WFI			0x00000002
-#define PROC_BOOT_STATUS_FLAG_R5_CLK_GATED		0x00000004
-#define PROC_BOOT_STATUS_FLAG_R5_LOCKSTEP_PERMITTED	0x00000100
+#define PROC_BOOT_STATUS_FLAG_R5_WFE                0x00000001
+#define PROC_BOOT_STATUS_FLAG_R5_WFI                0x00000002
+#define PROC_BOOT_STATUS_FLAG_R5_CLK_GATED          0x00000004
+#define PROC_BOOT_STATUS_FLAG_R5_LOCKSTEP_PERMITTED 0x00000100
 
 /**
  * struct ti_sci_msg_resp_get_proc_boot_status - Processor boot status response
@@ -1433,14 +1434,14 @@ struct ti_sci_msg_rm_udmap_flow_cfg_resp {
  */
 
 struct ti_sci_msg_fwl_set_firewall_region_req {
-	struct ti_sci_msg_hdr	hdr;
-	uint16_t			fwl_id;
-	uint16_t			region;
-	uint32_t			n_permission_regs;
-	uint32_t			control;
-	uint32_t			permissions[FWL_MAX_PRIVID_SLOTS];
-	uint64_t			start_address;
-	uint64_t			end_address;
+	struct ti_sci_msg_hdr hdr;
+	uint16_t fwl_id;
+	uint16_t region;
+	uint32_t n_permission_regs;
+	uint32_t control;
+	uint32_t permissions[FWL_MAX_PRIVID_SLOTS];
+	uint64_t start_address;
+	uint64_t end_address;
 } __packed;
 
 /**
@@ -1458,10 +1459,10 @@ struct ti_sci_msg_fwl_set_firewall_region_req {
  * @n_permission_regs:	Number of permission registers to retrieve
  */
 struct ti_sci_msg_fwl_get_firewall_region_req {
-	struct ti_sci_msg_hdr	hdr;
-	uint16_t			fwl_id;
-	uint16_t			region;
-	uint32_t			n_permission_regs;
+	struct ti_sci_msg_hdr hdr;
+	uint16_t fwl_id;
+	uint16_t region;
+	uint32_t n_permission_regs;
 } __packed;
 
 /**
@@ -1478,18 +1479,20 @@ struct ti_sci_msg_fwl_get_firewall_region_req {
  * @n_permission_regs:	Number of permission registers retrieved
  * @control:		Contents of the firewall CONTROL register
  * @permissions:	Contents of the firewall PERMISSION registers
- * @start_address:	Contents of the firewall START_ADDRESS register This is not applicable for channelized firewalls.
- * @end_address:	Contents of the firewall END_ADDRESS register This is not applicable for channelized firewalls.
+ * @start_address:	Contents of the firewall START_ADDRESS register This is not applicable for
+ *channelized firewalls.
+ * @end_address:	Contents of the firewall END_ADDRESS register This is not applicable for
+ *channelized firewalls.
  */
 struct ti_sci_msg_fwl_get_firewall_region_resp {
-	struct ti_sci_msg_hdr	hdr;
-	uint16_t			fwl_id;
-	uint16_t			region;
-	uint32_t			n_permission_regs;
-	uint32_t			control;
-	uint32_t			permissions[FWL_MAX_PRIVID_SLOTS];
-	uint64_t			start_address;
-	uint64_t			end_address;
+	struct ti_sci_msg_hdr hdr;
+	uint16_t fwl_id;
+	uint16_t region;
+	uint32_t n_permission_regs;
+	uint32_t control;
+	uint32_t permissions[FWL_MAX_PRIVID_SLOTS];
+	uint64_t start_address;
+	uint64_t end_address;
 } __packed;
 
 /**
@@ -1502,10 +1505,10 @@ struct ti_sci_msg_fwl_get_firewall_region_resp {
  * @owner_index:	New owner index to transfer ownership to
  */
 struct ti_sci_msg_fwl_change_owner_info_req {
-	struct ti_sci_msg_hdr	hdr;
-	uint16_t			fwl_id;
-	uint16_t			region;
-	uint8_t			owner_index;
+	struct ti_sci_msg_hdr hdr;
+	uint16_t fwl_id;
+	uint16_t region;
+	uint8_t owner_index;
 } __packed;
 
 /**
@@ -1519,13 +1522,65 @@ struct ti_sci_msg_fwl_change_owner_info_req {
  * @owner_privid:	New owner priv-ID returned by DMSC.
  * @owner_permission_bits:	New owner permission bits returned by DMSC.
  */
+
 struct ti_sci_msg_fwl_change_owner_info_resp {
-	struct ti_sci_msg_hdr	hdr;
-	uint16_t			fwl_id;
-	uint16_t			region;
-	uint8_t			owner_index;
-	uint8_t			owner_privid;
-	uint16_t			owner_permission_bits;
+	struct ti_sci_msg_hdr hdr;
+	uint16_t fwl_id;
+	uint16_t region;
+	uint8_t owner_index;
+	uint8_t owner_privid;
+	uint16_t owner_permission_bits;
 } __packed;
 
+/**
+ * struct ti_sci_version_info - version information structure
+ * @abi_major:	Major ABI version. Change here implies risk of backward
+ *		compatibility break.
+ * @abi_minor:	Minor ABI version. Change here implies new feature addition,
+ *		or compatible change in ABI.
+ * @firmware_revision:	Firmware revision (not usually used).
+ * @firmware_description: Firmware description (not usually used).
+ */
+struct ti_sci_version_info {
+	uint8_t abi_major;
+	uint8_t abi_minor;
+	uint16_t firmware_revision;
+	char firmware_description[32];
+};
+
+
+struct ti_sci_desc {
+	uint8_t default_host_id;
+	int max_rx_timeout_ms;
+	int max_msgs;
+	int max_msg_size;
+};
+
+struct tisci_config {
+	struct mbox_dt_spec mbox_tx;
+	struct mbox_dt_spec mbox_rx;
+	uint32_t host_id;
+};
+
+struct rx_msg {
+	uint8_t seq;
+	uint8_t size;
+	char buf[256];
+};
+
+struct ti_sci_xfer {
+	struct mbox_msg tx_message;
+	struct rx_msg rx_message;
+	uint8_t rx_len;
+};
+
+struct tisci_data {
+	struct ti_sci_xfer xfer;
+	struct ti_sci_desc desc;
+	struct ti_sci_version_info version;
+	uint32_t host_id;
+	uint8_t seq;
+};
+
+extern struct rx_msg rx_message;
 #endif /* INCLUDE_ZEPHYR_DRIVERS_MISC_TISCI_H_ */

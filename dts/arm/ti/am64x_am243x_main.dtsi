@@ -13,6 +13,31 @@
   #address-cells = <1>;
   #size-cells = <1>;
 
+  	
+	dmsc: system-controller@44043000 {
+		compatible = "ti,k2g-sci";
+		ti,host-id = <36>;
+		mbox-names = "rx", "tx";
+		mboxes = <&secure_proxy_main 2>, <&secure_proxy_main 3>;
+		reg-names = "debug_messages";
+		reg = <0x44043000 0xfe0>;
+
+		k3_clks: clock-controller {
+			compatible = "ti,k2g-sci-clk";
+			#clock-cells = <2>;
+		};
+	};
+	
+	secure_proxy_main: mailbox0@4d000000 {
+		compatible = "ti,secure-proxy";
+		reg-names = "target_data", "rt", "scfg";
+		reg = <0x4d000000 0x80000>, <0x4a600000 0x80000>, <0x4a400000 0x80000>;
+		interrupts = <0 65 IRQ_TYPE_EDGE IRQ_DEFAULT_PRIORITY>;
+		interrupt-parent = <&vim>;
+		#mbox-cells = <1>;
+		status = "okay";
+	};
+
 	pinctrl: pinctrl@f4000 {
 		compatible = "ti,k3-pinctrl";
 		reg = <0xf4000 0x88>;
@@ -23,6 +48,7 @@
     compatible = "ns16550";
     reg = <0x02800000 0x200>;
     clock-frequency = <48000000>;
+    clocks = <&k3_clks 146 0>;
     reg-shift = <2>;
     status = "disabled";
   };
@@ -31,6 +57,7 @@
     compatible = "ns16550";
     reg = <0x02810000 0x200>;
     clock-frequency = <48000000>;
+    clocks = <&k3_clks 54 0>;
     reg-shift = <2>;
     status = "disabled";
   };

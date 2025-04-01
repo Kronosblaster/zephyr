@@ -12,7 +12,7 @@
 #include <zephyr/sys/util_macro.h>
 
 #include <zephyr/device.h>
-#include <zephyr/drivers/misc/ti_sci/ti_sci.h>
+#include <zephyr/drivers/firmware/ti_sci/tisci_protocol.h>
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/mbox.h>
 #include <zephyr/sys/util.h>
@@ -161,6 +161,7 @@ static int secproxy_mailbox_send(const struct device *dev, uint32_t channel, con
         sys_write32(0x0, data_reg);
         data_reg += sizeof(uint32_t);
     }
+    secproxy_mailbox_isr(dev);
     return 0;
 }
 
