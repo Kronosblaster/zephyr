@@ -1,0 +1,16 @@
+# Copyright 2024 NXP
+# SPDX-License-Identifier: Apache-2.0
+
+description: NXP SCU-managed power domain
+
+compatible: "ti,sci-pm-domain"
+
+include: base.yaml
+
+properties:
+  "#power-domain-cells":
+    const: 2
+
+power-domain-cells:
+  - devid
+  - mode
