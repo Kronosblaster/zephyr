@@ -64,6 +64,7 @@ static struct tisci_xfer *tisci_setup_one_xfer(const struct device *dev, uint16_
 					       size_t rx_message_size)
 {
 	struct tisci_data *data = dev->data;
+
 	k_sem_take(&data->data_sem, K_FOREVER);
 
 	const struct tisci_config *config = dev->config;
@@ -120,6 +121,7 @@ static int tisci_get_response(const struct device *dev, struct tisci_xfer *xfer)
 	}
 
 	struct tisci_data *data = dev->data;
+
 	k_sem_take(&data->data_sem, K_FOREVER);
 
 	const struct tisci_config *config = dev->config;
